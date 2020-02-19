@@ -22,14 +22,21 @@ h2, p {
 
 h2 {
     font-size: 2.5em;
+    text-shadow: 2px 2px #000;
 }
 
 p {
     font-size: 1.5em;
     padding-left: 10%;
     padding-right: 10%;
+    text-align: left;
 }
 
 ul {
     list-style-type: none;
+}
+
+#example {
+    font-size: 2em;
+    text-shadow: 2px 2px #000;
 }
