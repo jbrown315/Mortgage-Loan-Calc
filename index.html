@@ -12,18 +12,31 @@
 <h2>Simple Interest Loan</h2>
 <p>A simple interest loan is a method of calculating interest based off a payment made over a period of time.
     The total amount you pay is the principal amount plus the interest that accrues over the duration of the loan.</p>
-$$i=Prt$$
+<span>$$i=Prt$$</span>
 <p id="example">Example:</p>
 <p>If I take out a loan of $5000 with a 10% monthly interest rate that will be payed in 5 years, the total amount of
-    interest can be calculated. <ul><li>$$P = $5000$$</li><li>$$r = \frac{10\%}{1 month}$$</li><li>$$t = 5 years$$</li></ul>
-    $$r = \frac{10\%}{1month} * \frac{12months}{1year} = \frac{120%}{1year}$$
-    $$i = ($5000) * (120\%) * (5 years)$$
-    $$i = $30,000$$</p>
+    interest can be calculated. <ul><span><li>$$P = $5000$$</li><li>$$r = \frac{10\%}{1 \text{ month}}$$</li><li>$$t = 5 \text{ years}$$</li></span></ul>
+    <span>$$r = \frac{10\%}{1\text{ month}} * \frac{12\text{ months}}{1\text{ year}} = \frac{120%}{1\text{ year}}$$</span>
+    <span>$$i = ($5000) * (120\%) * (5 \text{ years})$$</span>
+    <span>$$i = $30,000$$</span>></p>
 <h2>Compound Interest Loan</h2>
 <p>Unlike a simple interest loan, a compound interest loan charges interest on the interest. Rather than owing an interest
-    rate on your principal amount, you owe the interest rate based on the principle and any other interest amount. </p>
+    rate on your principal amount, you owe the interest rate based on the principle and any other interest amount. The total amount
+    owed is is increased by the interest rate which is taken off the total amount owed rather than your principal amount.</p>
+<span>$$A = P(1 + \frac{r}{n})^{nt}$$</span>
+<p id="example">Example:</p>
+<p>If I take out a loan of $5000 with a 10% monthly interest rate that will be payed every year for 5 years, the total cost of
+    the loan can be calculated. <ul><span><li>$$P = \text{Principal} = $5000$$</li><li>$$r = \text{rate} = 10\%$$</li><li>$$n = \text{payments per time period} = 12$$</li><li>$$t = \text{time period} = 5 \text{ years}$$</li></span></ul>
+    <span>$$A = ($5000) * (1 + \frac{10\%}{12})^{(12)(5)}$$</span>
+    <span>$$A = $8,227$$</span>></p>
 <h2>Interest Only Loan</h2>
 <p>In an Interest only loan, you pay a fixed amount of interest based on the principal amount. Then you pay that amount over
-    the course of a designated time period. (P*r)/n n = number of times per year</p>
+    the course of a designated time period.</p>
+<span>$$A = \frac{P*r}{n}$$</span>
+<p id="example">Example:</p>
+<p>If I take out a loan of $5000 with a 10% interest rate that will be paid through 4 payments, the  cost of each loan payment can be calculated.
+    <ul><span><li>$$P = \text{Principal} = $5000$$</li><li>$$r = \text{rate} = 10\%$$</li><li>$$n = \text{number of payments} = 4$$</li></span></ul>
+    <span>$$A = \frac{$5000 * 10\%}{4}$$</span>
+    <span>$$A = $125$$</span>></p>
 </body>
 </html>
