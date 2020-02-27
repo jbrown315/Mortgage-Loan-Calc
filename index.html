@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Loans</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="Loans.js"></script>
 </head>
 <body>
 <h1>Different Types of Loans</h1>
@@ -16,7 +17,7 @@
 <span>$$i = \text{Total Interest amount}$$</span>
 <span>$$P = \text{Principal}$$</span>
 <span>$$r = \text{Interest Rate}$$</span>
-<span>$$n = \text{Number of payments}$$</span>
+<span>$$t = \text{Time period}$$</span>
 <p class="example">Example:</p>
 <p>If I take out a loan of $5000 with a 10% monthly interest rate that will be payed in 5 years, the total amount of
     interest can be calculated. <ul><span><li>$$P = $5000$$</li><li>$$r = \frac{10\%}{1 \text{ month}}$$</li><li>$$t = 5 \text{ years}$$</li></span></ul>
@@ -25,6 +26,26 @@
     <span>$$i = $30,000$$</span>
     <span>$$\text{Total Cost} = $35,000$$</span>
     <span>$$\text{Monthly Payment} = $35,000/60\text{ months} = $583.33$$</span></p>
+<p class="calculator">Calculator:</p>
+<div id="simpleInt">
+    <p> Loan Amount: <input type="number" id="loanAmount" min="0" max="10000000" ><br>
+        Interest Rate: <input type="number" id="intRate">
+        <select>
+            <option>Monthly</option>
+            <option>Yearly</option>
+        </select><br>
+        Duration of Loan: <input type="number" id="loanLength" min="0" max="600">
+        <select>
+            <option>Months</option>
+            <option>Years</option>
+        </select><br>
+    </p>
+    <button onclick = "simpleCalc();" id="calcButton">Calculate</button><br>
+
+</div>
+
+
+
 <h2>Compound Interest Loan</h2>
 <p>Unlike a simple interest loan, a compound interest loan charges interest total amount owed. Rather than owing an interest
     rate on your principal amount, you owe the interest from the total amount. The total amount owed is is increased by the
