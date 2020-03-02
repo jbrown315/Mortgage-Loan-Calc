@@ -27,24 +27,33 @@
     <span>$$\text{Total Cost} = $35,000$$</span>
     <span>$$\text{Monthly Payment} = $35,000/60\text{ months} = $583.33$$</span></p>
 <p class="calculator">Calculator:</p>
-<div id="simpleInt">
-    <p> Loan Amount: <input type="number" id="loanAmount" min="0" max="10000000" ><br>
-        Interest Rate: <input type="number" id="intRate">
+<div id="simpleMain">
+<div id="simpleLabels">
+    <p> Loan Amount:<br>
+        Interest Rate:<br>
+        Duration of Loan:<br>
+    </p>
+
+
+</div>
+<div id="simpleInputs">
+    <input type="number" id="loanAmount" min="0" max="10000000" ><br>
+    <input type="number" id="intRate">
         <select>
             <option>Monthly</option>
             <option>Yearly</option>
         </select><br>
-        Duration of Loan: <input type="number" id="loanLength" min="0" max="600">
+    <input type="number" id="loanLength" min="0" max="600">
         <select>
             <option>Months</option>
             <option>Years</option>
         </select><br>
-    </p>
-    <button onclick = "simpleCalc();" id="calcButton">Calculate</button><br>
+</div>
+</div>
+<p id="calcButton"><button onclick = "simpleCalc();">Calculate</button><br></p>
+<div id="simpleTable">
 
 </div>
-
-
 
 <h2>Compound Interest Loan</h2>
 <p>Unlike a simple interest loan, a compound interest loan charges interest total amount owed. Rather than owing an interest

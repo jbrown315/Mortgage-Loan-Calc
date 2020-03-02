@@ -1,11 +1,13 @@
 
 function simpleCalc() {
 
+    deleteTable();
+
     var loanAmount = document.getElementById("loanAmount");
 
     errors(loanAmount);
 
-    var simpleEl = document.getElementById("simpleInt");
+    var simpleEl = document.getElementById("simpleTable");
     var table = document.createElement("table");
     table.setAttribute("id", "table");
     var headRow = document.createElement("tr");
@@ -25,6 +27,7 @@ function simpleCalc() {
         table.appendChild(row);
     }
 
+    table.setAttribute("id","simpleFinal")
     simpleEl.appendChild(table);
 
 
@@ -41,4 +44,11 @@ function errors(num) {
 
     }
 
+}
+
+function deleteTable() {
+    var newTable = document.getElementById("simpleFinal")
+    if (newTable) {
+        newTable.remove()
+    }
 }

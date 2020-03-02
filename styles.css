@@ -47,8 +47,10 @@ span {
     text-shadow: 1px 1px #000;
 }
 
-#simpleInt {
-    text-align: center;
+#simpleLabels {
+    text-align: right;
+    display: inline-block;
+    width: 17%;
 }
 
 table, th, td {
@@ -63,17 +65,39 @@ table, th, td {
 .calculator {
     font-size: 2em;
     text-shadow: 2px 2px #000;
+    margin-bottom: 0px;
 }
 
-#simpleInt p {
-    text-align: center;
+#simpleLabels p {
+    text-align: right;
+    padding-right: 0px;
+    padding-left: 0px;
 
 }
 
 input {
     width: 150px;
+    margin: 5px;
 }
 
 ::placeholder {
     color: red;
+}
+
+#simpleInputs {
+    display: inline-block;
+    text-align: left;
+}
+
+#simpleMain {
+    text-align: center;
+}
+
+select {
+    width: 75px;
+}
+
+#calcButton {
+    text-align: center;
+    margin-top: 0px;
 }
