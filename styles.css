@@ -1,7 +1,11 @@
 
 body {
-    background-color: #2496FA;
+    background-color: #000;
     margin: 0px;
+}
+
+#main {
+    background-color: #2496FA;
 }
 
 h1 {
@@ -12,12 +16,15 @@ h1 {
     padding-top: 3%;
     padding-bottom: 3%;
     font-size: 4em;
+    border: 5px solid white;
 }
 
 h2, p {
     text-align: center;
     color: #FFF;
     text-shadow: 1px 1px #000;
+    margin: 0px;
+    padding: 15px;
 }
 
 h2 {
@@ -50,7 +57,7 @@ span {
 #simpleLabels {
     text-align: right;
     display: inline-block;
-    width: 17%;
+    width: 27%;
 }
 
 table, th, td {
@@ -87,6 +94,7 @@ input {
 #simpleInputs {
     display: inline-block;
     text-align: left;
+    width: 27%;
 }
 
 #simpleMain {
@@ -101,3 +109,17 @@ select {
     text-align: center;
     margin-top: 0px;
 }
+
+footer {
+    color: white;
+    background-color: #000;
+    text-align: center;
+    font-size: 1.25em;
+    padding: 20px;
+    border: 5px solid white;
+}
+
+td {
+    text-align: center;
+}
+

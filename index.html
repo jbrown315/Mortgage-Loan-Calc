@@ -10,6 +10,7 @@
 </head>
 <body>
 <h1>Different Types of Loans</h1>
+<div id="main">
 <h2>Simple Interest Loan</h2>
 <p>A simple interest loan is a method of calculating interest based off a payment made over a period of time.
     The total amount you pay is the principal amount plus the interest that accrues over the duration of the loan.</p>
@@ -26,28 +27,21 @@
     <span>$$i = $30,000$$</span>
     <span>$$\text{Total Cost} = $35,000$$</span>
     <span>$$\text{Monthly Payment} = $35,000/60\text{ months} = $583.33$$</span></p>
-<p class="calculator">Calculator:</p>
+<p class="calculator">Monthly Payment Calculator:</p>
 <div id="simpleMain">
 <div id="simpleLabels">
     <p> Loan Amount:<br>
-        Interest Rate:<br>
-        Duration of Loan:<br>
+        Yearly Interest Rate:<br>
+        Duration of Loan (In Years):<br>
     </p>
 
 
 </div>
 <div id="simpleInputs">
-    <input type="number" id="loanAmount" min="0" max="10000000" ><br>
-    <input type="number" id="intRate">
-        <select>
-            <option>Monthly</option>
-            <option>Yearly</option>
-        </select><br>
-    <input type="number" id="loanLength" min="0" max="600">
-        <select>
-            <option>Months</option>
-            <option>Years</option>
-        </select><br>
+    <input type="number" id="loanAmount" min="0" max="10000000" value="120"><br>
+    <input type="number" id="intRate" value="10"><br>
+    <input type="number" id="loanLength" min="0" max="600" value="1"><br>
+
 </div>
 </div>
 <p id="calcButton"><button onclick = "simpleCalc();">Calculate</button><br></p>
@@ -84,6 +78,11 @@
 <p>If I take out a loan of $5000 with a 10% interest rate that will be paid through 4 payments, the  cost of each loan payment can be calculated.
     <ul><span><li>$$P = \text{Principal} = $5000$$</li><li>$$r = \text{rate} = 10\%$$</li><li>$$n = \text{number of payments} = 4$$</li></span></ul>
     <span>$$A = \frac{$5000 * 10\%}{4}$$</span>
-    <span>$$A = $125$$</span>></p>
+    <span>$$A = $125$$</span></p>
+</div>
+<footer>
+    Footer
+
+</footer>
 </body>
 </html>
