@@ -54,7 +54,7 @@ span {
     text-shadow: 1px 1px #000;
 }
 
-#simpleLabels {
+#simpleLabels, #compLabels {
     text-align: right;
     display: inline-block;
     width: 27%;
@@ -75,7 +75,7 @@ table, th, td {
     margin-bottom: 0px;
 }
 
-#simpleLabels p {
+#simpleLabels p, #compLabels p{
     text-align: right;
     padding-right: 0px;
     padding-left: 0px;
@@ -91,13 +91,13 @@ input {
     color: red;
 }
 
-#simpleInputs {
+#simpleInputs, #compInputs {
     display: inline-block;
     text-align: left;
     width: 27%;
 }
 
-#simpleMain {
+#simpleMain, #compMain {
     text-align: center;
 }
 
@@ -105,7 +105,7 @@ select {
     width: 75px;
 }
 
-#calcButton {
+.calcButton {
     text-align: center;
     margin-top: 0px;
 }
@@ -122,4 +122,3 @@ footer {
 td {
     text-align: center;
 }
-

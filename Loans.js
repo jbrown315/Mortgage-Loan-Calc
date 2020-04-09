@@ -3,22 +3,39 @@ function simpleCalc() {
 
     deleteTable("simpleFinal");
 
-    var loanAmount = document.getElementById("loanAmount");
-    var intRate = document.getElementById("intRate");
-    var loanLength = document.getElementById("loanLength");
+    var loanAmountSimple = document.getElementById("loanAmountSimple");
+    var intRateSimple = document.getElementById("intRateSimple");
+    var loanLengthSimple = document.getElementById("loanLengthSimple");
 
-    validator(loanAmount);
-    validator(intRate);
-    validator(loanLength);
+    validator(loanAmountSimple);
+    validator(intRateSimple);
+    validator(loanLengthSimple);
 
     var simpleEl = document.getElementById("simpleTable");
 
-    tableMaker(simpleEl, "simpleFinal");
+    tableMaker(simpleEl, "simpleFinal" , loanAmountSimple.value, intRateSimple.value, loanLengthSimple.value);
 
 
 }
 
-function tableMaker(tableLoc, loanType) {
+function compoundCalc() {
+
+    deleteTable("compFinal");
+
+    var loanAmountComp = document.getElementById("loanAmountComp");
+    var intRateComp = document.getElementById("intRateComp");
+    var loanLengthComp = document.getElementById("loanLengthComp");
+
+    validator(loanAmountComp);
+    validator(intRateComp);
+    validator(loanLengthComp);
+
+    var compEl = document.getElementById("compTable");
+
+    tableMaker(compEl, "compFinal", loanAmountComp.value, intRateComp.value, loanLengthComp.value);
+}
+
+function tableMaker(tableLoc, loanType, loanAmount, intRate, loanLength) {
     var table = document.createElement("table");
     table.setAttribute("id", loanType);
 
@@ -34,7 +51,7 @@ function tableMaker(tableLoc, loanType) {
 
     table.appendChild(headRow);
 
-    var data = rowCalc(parseInt(loanAmount.value), parseInt(intRate.value), parseInt(loanLength.value));
+    var data = rowCalc(parseInt(loanAmount), parseInt(intRate), parseInt(loanLength));
     for (i=0; i<data.length; i++) {
         var tableRow = document.createElement("tr");
         for (x=0; x<data[i].length; x++) {
@@ -48,11 +65,13 @@ function tableMaker(tableLoc, loanType) {
 
     tableLoc.appendChild(table);
 
-    var totalInt = document.createTextNode("Total Interest: " + formatAsMoney((loanAmount.value) * parseInt(intRate.value) / 100));
+    var totalInt = document.createTextNode("Total Interest: " + formatAsMoney((loanAmount) * parseInt(intRate) / 100));
     var totalIntEl = document.createElement("p");
+    totalIntEl.setAttribute("id", "totalInt");
 
-    var totalLoan = document.createTextNode("Total Cost of Loan: " + formatAsMoney(parseInt(loanAmount.value) + (parseInt(loanAmount.value) * parseInt(intRate.value) / 100)));
+    var totalLoan = document.createTextNode("Total Cost of Loan: " + formatAsMoney(parseInt(loanAmount) + (parseInt(loanAmount) * parseInt(intRate) / 100)));
     var totalLoanEl = document.createElement("p");
+    totalLoanEl.setAttribute("id", "totalLoan");
 
     totalIntEl.style.fontSize = "2em";
     totalIntEl.style.textAlign = "center";
@@ -107,10 +126,22 @@ function validator(num) {
 }
 
 function deleteTable(tableName) {
-    var newTable = document.getElementById(tableName)
+    var newTable = document.getElementById(tableName);
+    var int = document.getElementById("totalInt");
+    var loan = document.getElementById("totalLoan");
+
     if (newTable) {
-        newTable.remove()
+        newTable.remove();
     }
+
+    if (int) {
+        int.remove();
+    }
+
+    if (loan) {
+        loan.remove();
+    }
+
 }
 
 // Format the value to look like money....with 2 decimals and a currency symbol.....what which you will eventually allow user to customize

@@ -38,13 +38,13 @@
 
 </div>
 <div id="simpleInputs">
-    <input type="number" id="loanAmount" min="0" max="10000000" value="120"><br>
-    <input type="number" id="intRate" value="10"><br>
-    <input type="number" id="loanLength" min="0" max="600" value="1"><br>
+    <input type="number" id="loanAmountSimple" min="0" max="10000000" value="120"><br>
+    <input type="number" id="intRateSimple" value="10"><br>
+    <input type="number" id="loanLengthSimple" min="0" max="600" value="1"><br>
 
 </div>
 </div>
-<p id="calcButton"><button onclick = "simpleCalc();">Calculate</button><br></p>
+<p class="calcButton"><button onclick = "simpleCalc();">Calculate</button><br></p>
 <div id="simpleTable">
 
 </div>
@@ -70,6 +70,37 @@
     </ul>
     <span>$$x = \frac{$5000 * (\frac{10\%}{36})}{(1-(1+\frac{10\%}{36})^{-36*3})}$$</span>
     <span>$$x = $53.65$$</span></p>
+    <p class="calculator">Monthly Payment Calculator:</p>
+    <div id="compMain">
+        <div id="compLabels">
+            <p> Loan Amount:<br>
+                Yearly Interest Rate:<br>
+                Duration of Loan (In Years):<br>
+                Compounding Period:<br>
+                Additional Yearly Payment:<br>
+        </p>
+
+        </div>
+        <div id="compInputs">
+            <input type="number" id="loanAmountComp" min="0" max="10000000" value="120"><br>
+            <input type="number" id="intRateComp" value="10"><br>
+            <input type="number" id="loanLengthComp" min="0" max="600" value="1"><br>
+            <select id="compPeriod">
+                <option>Monthly</option>
+                <option>Weekly</option>
+                <option>Daily</option>
+            </select><br>
+            <input type="number" id="compAdd" min="0" max="600" value="0"><br>
+
+        </div>
+
+    </div>
+    <p class="calcButton"><button onclick = "compoundCalc();">Calculate</button><br></p>
+    <div id="compTable">
+
+    </div>
+
+
 <h2>Interest Only Loan</h2>
 <p>In an Interest only loan, you pay a fixed amount of interest based on the principal amount. Then you pay that amount over
     the course of a designated time period.</p>
