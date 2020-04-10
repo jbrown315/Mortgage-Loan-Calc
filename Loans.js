@@ -1,6 +1,9 @@
 
 function simpleCalc() {
 
+    //window.first = Date.now();
+
+
     deleteTable("simpleFinal");
 
     var loanAmountSimple = document.getElementById("loanAmountSimple");
@@ -13,9 +16,28 @@ function simpleCalc() {
 
     var simpleEl = document.getElementById("simpleTable");
 
-    tableMaker(simpleEl, "simpleFinal" , loanAmountSimple.value, intRateSimple.value, loanLengthSimple.value);
+    var simpleHeaders = ["Payment Number", "Beginning Balance", "Interest", "Principal Amount", "Payment", "End Balance"];
 
+    tableMaker(simpleEl, "simpleFinal" , simpleHeaders, loanAmountSimple.value, intRateSimple.value, loanLengthSimple.value);
 
+    var totalIntSimple = document.createTextNode("Total Interest: " + formatAsMoney((loanAmountSimple.value) * parseInt(intRateSimple.value) / 100));
+    var totalIntElSimple = document.createElement("p");
+    totalIntElSimple.setAttribute("id", "totalInt");
+
+    var totalLoanSimple = document.createTextNode("Total Cost of Loan: " + formatAsMoney(parseInt(loanAmountSimple.value) + (parseInt(loanAmountSimple.value) * parseInt(intRateSimple.value) / 100)));
+    var totalLoanElSimple = document.createElement("p");
+    totalLoanElSimple.setAttribute("id", "totalLoan");
+
+    totalIntElSimple.style.fontSize = "2em";
+    totalIntElSimple.style.textAlign = "center";
+    totalLoanElSimple.style.fontSize = "2em";
+    totalLoanElSimple.style.textAlign = "center";
+
+    totalIntElSimple.appendChild(totalIntSimple);
+    totalLoanElSimple.appendChild(totalLoanSimple);
+
+    simpleEl.appendChild(totalIntElSimple);
+    simpleEl.appendChild(totalLoanElSimple);
 }
 
 function compoundCalc() {
@@ -25,21 +47,34 @@ function compoundCalc() {
     var loanAmountComp = document.getElementById("loanAmountComp");
     var intRateComp = document.getElementById("intRateComp");
     var loanLengthComp = document.getElementById("loanLengthComp");
+    var compPeriod = document.getElementById("compPeriod");
+    var compAdd = document.getElementById("compAdd");
 
     validator(loanAmountComp);
     validator(intRateComp);
     validator(loanLengthComp);
 
+    if (compAdd.value < 0 || isNaN(compAdd.value) == true) {
+        compAdd.value = "";
+        compAdd.setAttribute("placeholder", "A number greater than 0");
+
+    }
+    else {
+        compAdd.removeAttribute("placeholder");
+
+    }
+
     var compEl = document.getElementById("compTable");
 
-    tableMaker(compEl, "compFinal", loanAmountComp.value, intRateComp.value, loanLengthComp.value);
+    var compHeaders = ["Payment Number", "Beginning Balance", "Interest", "Additional Payment", "Principal", "Payment", "End Balance"];
+
+    tableMaker(compEl, "compFinal", compHeaders, loanAmountComp.value, (intRateComp.value)/100, loanLengthComp.value, compPeriod.value, compAdd.value);
 }
 
-function tableMaker(tableLoc, loanType, loanAmount, intRate, loanLength) {
+function tableMaker(tableLoc, loanType, headers, loanAmount, intRate, loanLength, period, add) {
     var table = document.createElement("table");
     table.setAttribute("id", loanType);
 
-    var headers = ["Payment Number", "Beginning Balance", "Interest", "Principal Amount", "Payment", "End Balance"];
     var headRow = document.createElement("tr");
 
     for (i=0; i<headers.length; i++) {
@@ -51,7 +86,12 @@ function tableMaker(tableLoc, loanType, loanAmount, intRate, loanLength) {
 
     table.appendChild(headRow);
 
-    var data = rowCalc(parseInt(loanAmount), parseInt(intRate), parseInt(loanLength));
+    if (loanType == "simpleFinal") {
+        var data = rowCalcSimple(parseInt(loanAmount), parseInt(intRate), parseInt(loanLength));
+        }
+    else if (loanType == "compFinal") {
+        var data = rowCalcComp(parseInt(loanAmount), intRate, parseInt(add), period, parseInt(loanLength));
+    }
     for (i=0; i<data.length; i++) {
         var tableRow = document.createElement("tr");
         for (x=0; x<data[i].length; x++) {
@@ -65,50 +105,77 @@ function tableMaker(tableLoc, loanType, loanAmount, intRate, loanLength) {
 
     tableLoc.appendChild(table);
 
-    var totalInt = document.createTextNode("Total Interest: " + formatAsMoney((loanAmount) * parseInt(intRate) / 100));
-    var totalIntEl = document.createElement("p");
-    totalIntEl.setAttribute("id", "totalInt");
-
-    var totalLoan = document.createTextNode("Total Cost of Loan: " + formatAsMoney(parseInt(loanAmount) + (parseInt(loanAmount) * parseInt(intRate) / 100)));
-    var totalLoanEl = document.createElement("p");
-    totalLoanEl.setAttribute("id", "totalLoan");
-
-    totalIntEl.style.fontSize = "2em";
-    totalIntEl.style.textAlign = "center";
-    totalLoanEl.style.fontSize = "2em";
-    totalLoanEl.style.textAlign = "center";
-
-    totalIntEl.appendChild(totalInt);
-    totalLoanEl.appendChild(totalLoan);
-
-    tableLoc.appendChild(totalIntEl);
-    tableLoc.appendChild(totalLoanEl);
 }
 
 // Length is in years
-function rowCalc(bal, rate, length) {
+function rowCalcSimple(bal, rate, length) {
     var totalInterest = length*bal*rate/100;
     var intAmount = totalInterest / (length*12);
 
     //var intAmount = (length)/(bal * (rate)/100);
     var principal = (bal/(length*12));
-    var rows = [];
+    var rowsSimple = [];
     for (i=1; i<=(length*12); i++) {
-        var newRow = [];
-        newRow.push(i);
-        newRow.push(formatAsMoney(bal));
-        newRow.push(formatAsMoney(intAmount));
-        newRow.push(formatAsMoney(principal));
-        newRow.push(formatAsMoney(principal+intAmount));
+        var newRowSimple = [];
+        newRowSimple.push(i);
+        newRowSimple.push(formatAsMoney(bal));
+        newRowSimple.push(formatAsMoney(intAmount));
+        newRowSimple.push(formatAsMoney(principal));
+        newRowSimple.push(formatAsMoney(principal+intAmount));
         bal = bal-principal;
         if (bal < 0){
             bal = 0;
         }
-        newRow.push(formatAsMoney(bal));
-        rows.push(newRow);
+        newRowSimple.push(formatAsMoney(bal));
+        rowsSimple.push(newRowSimple);
     }
 
-    return(rows);
+    return(rowsSimple);
+
+}
+
+function rowCalcComp(bal, rate, additional, period, length) {
+    var conversion = {"Monthly":12, "Weekly":52, "Daily":365};
+
+    var compPrincipalMath = Math.pow(1+(rate/(conversion[period])),(length*(conversion[period])));
+    var compPrincipal = (bal * (rate/(conversion[period])) * compPrincipalMath)/(compPrincipalMath - 1);
+
+    var rowsComp = [];
+    for (i=1; i<=length*12; i++) {
+        var newRowComp = [];
+        if(bal >= compPrincipal+(additional/12)){
+            newRowComp.push(i);
+            newRowComp.push(formatAsMoney(bal));
+            newRowComp.push(formatAsMoney(bal * (rate/(conversion[period]))));
+            newRowComp.push(formatAsMoney(additional/12));
+            newRowComp.push(formatAsMoney(compPrincipal - (bal * (rate/(conversion[period])))));
+            var compNewBal = bal - ((compPrincipal - (bal * (rate/(conversion[period])))) + (additional/12));
+            newRowComp.push(formatAsMoney(compPrincipal + (additional/12)));
+            newRowComp.push(formatAsMoney(compNewBal));
+
+            bal = compNewBal;
+
+            rowsComp.push(newRowComp);
+        }
+
+        else {
+            newRowComp.push(i);
+            newRowComp.push(formatAsMoney(bal));
+            newRowComp.push(formatAsMoney(bal * (rate/(conversion[period]))));
+            newRowComp.push(formatAsMoney(additional/12));
+            newRowComp.push(formatAsMoney(bal));
+            newRowComp.push(formatAsMoney(bal + (bal * (rate/(conversion[period])))));
+            newRowComp.push(formatAsMoney(0));
+            rowsComp.push(newRowComp);
+            break;
+
+        }
+
+
+
+    }
+
+    return(rowsComp);
 
 }
 
@@ -155,3 +222,4 @@ function formatAsMoney(value) {
 
     return(formatter.format(value));
 }
+
