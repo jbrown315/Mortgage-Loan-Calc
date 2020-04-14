@@ -4,7 +4,7 @@ function simpleCalc() {
     //window.first = Date.now();
 
 
-    deleteTable("simpleFinal","totalIntSimple", "totalLoanSimple");
+    deleteTable("simpleCollapse", "simpleContent", "totalIntSimple", "totalLoanSimple");
 
     var loanAmountSimple = document.getElementById("loanAmountSimple");
     var intRateSimple = document.getElementById("intRateSimple");
@@ -15,10 +15,6 @@ function simpleCalc() {
     validator(loanLengthSimple);
 
     var simpleEl = document.getElementById("simpleTable");
-
-    var simpleHeaders = ["Payment Number", "Beginning Balance", "Interest", "Principal Amount", "Payment", "End Balance"];
-
-    tableMaker(simpleEl, "simpleFinal" , simpleHeaders, loanAmountSimple.value, intRateSimple.value, loanLengthSimple.value);
 
     var totalIntSimple = document.createTextNode("Total Interest: " + formatAsMoney((loanAmountSimple.value) * parseInt(intRateSimple.value) / 100));
     var totalIntElSimple = document.createElement("p");
@@ -38,11 +34,43 @@ function simpleCalc() {
 
     simpleEl.appendChild(totalIntElSimple);
     simpleEl.appendChild(totalLoanElSimple);
+
+    //start building collapsible
+    var simpleTableButton = document.createElement("button");
+    simpleTableButton.innerHTML = "Amortization Schedule";
+    simpleTableButton.setAttribute("type", "button");
+    simpleTableButton.setAttribute("class", "collapsible");
+    simpleTableButton.setAttribute("id", "simpleCollapse");
+
+    var simpleTableLoc = document.createElement("div");
+    simpleTableLoc.setAttribute("class", "content");
+    simpleTableLoc.setAttribute("id", "simpleContent");
+
+    simpleTableButton.addEventListener("click", function() {
+        this.classList.toggle("active");
+        var simpleContent = simpleTableLoc;
+        if (simpleTableLoc.style.maxHeight) {
+            simpleTableLoc.style.maxHeight = null;
+        }
+        else {
+            simpleTableLoc.style.maxHeight = simpleTableLoc.scrollHeight + "px";
+        }
+
+    });
+
+    simpleEl.appendChild(simpleTableButton);
+    simpleEl.appendChild(simpleTableLoc);
+
+    var simpleHeaders = ["Payment Number", "Beginning Balance", "Interest", "Principal Amount", "Payment", "End Balance"];
+
+    tableMaker(simpleTableLoc, "simpleFinal" , simpleHeaders, loanAmountSimple.value, intRateSimple.value, loanLengthSimple.value);
+
+
 }
 
 function compoundCalc() {
 
-    deleteTable("compFinal");
+    deleteTable("compCollapse", "compContent","totalIntComp", "totalLoanComp");
 
     var loanAmountComp = document.getElementById("loanAmountComp");
     var intRateComp = document.getElementById("intRateComp");
@@ -66,15 +94,42 @@ function compoundCalc() {
 
     var compEl = document.getElementById("compTable");
 
+    //start building collapsible
+    var compTableButton = document.createElement("button");
+    compTableButton.innerHTML = "Amortization Schedule";
+    compTableButton.setAttribute("type", "button");
+    compTableButton.setAttribute("class", "collapsible");
+    compTableButton.setAttribute("id", "compCollapse");
+
+    var compTableLoc = document.createElement("div");
+    compTableLoc.setAttribute("class", "content");
+    compTableLoc.setAttribute("id", "compContent");
+
+    compTableButton.addEventListener("click", function() {
+        this.classList.toggle("active");
+        var compContent = compTableLoc;
+        if (compTableLoc.style.maxHeight) {
+            compTableLoc.style.maxHeight = null;
+        }
+        else {
+            compTableLoc.style.maxHeight = compTableLoc.scrollHeight + "px";
+        }
+
+    });
+
+    compEl.appendChild(compTableButton);
+    compEl.appendChild(compTableLoc);
+
+
     var compHeaders = ["Payment Number", "Beginning Balance", "Interest", "Additional Payment", "Principal", "Payment", "End Balance"];
 
-    tableMaker(compEl, "compFinal", compHeaders, loanAmountComp.value, (intRateComp.value)/100, loanLengthComp.value, compPeriod.value, compAdd.value);
+    tableMaker(compTableLoc, "compFinal", compHeaders, loanAmountComp.value, (intRateComp.value)/100, loanLengthComp.value, compPeriod.value, compAdd.value);
 
-    var totalIntComp = document.createTextNode("Total Interest: " + formatAsMoney((loanLengthComp.value * 12 * paymentComp) - loanAmountComp.value));
+    var totalIntComp = document.createTextNode("Total Interest: " + formatAsMoney((compPayments * paymentComp) - loanAmountComp.value));
     var totalIntElComp = document.createElement("p");
     totalIntElComp.setAttribute("id", "totalIntComp");
 
-    var totalLoanComp = document.createTextNode("Total Cost of Loan: " + formatAsMoney((loanLengthComp.value * 12 * paymentComp)));
+    var totalLoanComp = document.createTextNode("Total Cost of Loan: " + formatAsMoney((compPayments * paymentComp)));
     var totalLoanElComp = document.createElement("p");
     totalLoanElComp.setAttribute("id", "totalLoanComp");
 
@@ -159,7 +214,7 @@ function rowCalcComp(bal, rate, additional, period, length) {
 
     var compPrincipalMath = Math.pow(1+(rate/(conversion[period])),(length*(conversion[period])));
     var compPrincipal = (bal * (rate/(conversion[period])) * compPrincipalMath)/(compPrincipalMath - 1);
-
+    window.compPayments = length*12;
     var rowsComp = [];
     for (i=1; i<=length*12; i++) {
         var newRowComp = [];
@@ -170,8 +225,8 @@ function rowCalcComp(bal, rate, additional, period, length) {
             newRowComp.push(formatAsMoney(additional/12));
             newRowComp.push(formatAsMoney(compPrincipal - (bal * (rate/(conversion[period])))));
             var compNewBal = bal - ((compPrincipal - (bal * (rate/(conversion[period])))) + (additional/12));
-            window.paymentComp = compPrincipal + (additional/12);
-            newRowComp.push(formatAsMoney(paymentComp));
+            window.paymentComp = compPrincipal;
+            newRowComp.push(formatAsMoney(paymentComp + (additional/12)));
             newRowComp.push(formatAsMoney(compNewBal));
 
             bal = compNewBal;
@@ -188,6 +243,7 @@ function rowCalcComp(bal, rate, additional, period, length) {
             newRowComp.push(formatAsMoney(bal + (bal * (rate/(conversion[period])))));
             newRowComp.push(formatAsMoney(0));
             rowsComp.push(newRowComp);
+            window.compPayments = i;
             break;
 
         }
@@ -213,13 +269,18 @@ function validator(num) {
 
 }
 
-function deleteTable(tableName, totalInt, totalLoan) {
+function deleteTable(tableName, contentName, totalInt, totalLoan) {
     var newTable = document.getElementById(tableName);
+    var newContent = document.getElementById(contentName);
     var int = document.getElementById(totalInt);
     var loan = document.getElementById(totalLoan);
 
     if (newTable) {
         newTable.remove();
+    }
+
+    if (newContent) {
+        newContent.remove();
     }
 
     if (int) {
@@ -244,3 +305,39 @@ function formatAsMoney(value) {
     return(formatter.format(value));
 }
 
+//function createCollapse() {
+//    var collapseLoc = document.getElementById("collapse");
+//
+//    var div = document.createElement("div");
+//    var paragraph = document.createElement("p");
+//    var text = document.createTextNode("Inner Test Text");
+//
+//    paragraph.appendChild(text);
+//    div.appendChild(paragraph);
+//
+//    div.setAttribute("class", "content");
+//
+//
+//    var button = document.createElement("button");
+//    button.innerHTML = "Amortization Schedule";
+//    button.setAttribute("type", "button");
+//    button.setAttribute("class", "collapsible");
+//
+//    button.addEventListener("click", function() {
+//        this.classList.toggle("active");
+//        var content = div;
+//        if (content.style.maxHeight) {
+//            content.style.maxHeight = null;
+//        }
+//        else {
+//            content.style.maxHeight = content.scrollHeight + "px";
+//        }
+//
+//    });
+//
+//
+//
+//    collapseLoc.appendChild(button);
+//    collapseLoc.appendChild(div);
+//
+//}
