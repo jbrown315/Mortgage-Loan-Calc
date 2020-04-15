@@ -1,9 +1,6 @@
 
 function simpleCalc() {
 
-    //window.first = Date.now();
-
-
     deleteTable("simpleCollapse", "simpleContent", "totalIntSimple", "totalLoanSimple");
 
     var loanAmountSimple = document.getElementById("loanAmountSimple");
