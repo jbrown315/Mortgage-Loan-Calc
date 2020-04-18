@@ -159,3 +159,30 @@ td {
 .active:after {
   content: "\2212"; /* Unicode character for "minus" sign (-) */
 }
+
+nav {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 5px;
+}
+
+nav a {
+    color: white;
+    font-size: 1.75em;
+    text-decoration: none;
+    padding: 5px;
+
+}
+
+nav a:visited {
+    background-color: black;
+}
+
+nav a:hover {
+    background-color: #1f1d1d;
+}
+
+nav a:active {
+    background-color: #2e2b2b;
+}
