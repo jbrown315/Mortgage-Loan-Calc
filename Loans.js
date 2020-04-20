@@ -117,11 +117,11 @@ function compoundCalc(index) {
 
     tableMaker(compTableLoc, "compFinal", compHeaders, loanAmountComp.value, (intRateComp.value)/100, loanLengthComp.value, compPeriod.value, compAdd.value);
 
-    var totalIntComp = document.createTextNode("Total Interest: " + formatAsMoney((compPayments * paymentComp) - loanAmountComp.value));
+    var totalIntComp = document.createTextNode("Total Interest: " + formatAsMoney(interestTotal));
     var totalIntElComp = document.createElement("p");
     totalIntElComp.setAttribute("class", "totalIntComp");
 
-    var totalLoanComp = document.createTextNode("Total Cost of Loan: " + formatAsMoney((compPayments * paymentComp)));
+    var totalLoanComp = document.createTextNode("Total Cost of Loan: " + formatAsMoney(parseInt(loanAmountComp.value) + parseInt(interestTotal)));
     var totalLoanElComp = document.createElement("p");
     totalLoanElComp.setAttribute("class", "totalLoanComp");
 
@@ -207,12 +207,14 @@ function rowCalcComp(bal, rate, additional, period, length) {
     var compPrincipalMath = Math.pow(1+(rate/(conversion[period])),(length*(conversion[period])));
     var compPrincipal = (bal * (rate/(conversion[period])) * compPrincipalMath)/(compPrincipalMath - 1);
     window.compPayments = length*12;
+    window.interestTotal = 0;
     var rowsComp = [];
     for (i=1; i<=length*12; i++) {
         var newRowComp = [];
         if(bal >= compPrincipal+(additional/12)){
             newRowComp.push(i);
             newRowComp.push(formatAsMoney(bal));
+            interestTotal += (bal * (rate/(conversion[period])));
             newRowComp.push(formatAsMoney(bal * (rate/(conversion[period]))));
             newRowComp.push(formatAsMoney(additional/12));
             newRowComp.push(formatAsMoney(compPrincipal - (bal * (rate/(conversion[period])))));
@@ -262,17 +264,17 @@ function validator(num) {
 }
 
 function deleteTable(tableName, contentName, totalInt, totalLoan, index) {
-    var newTable = document.getElementsByClassName(tableName);
-    var newContent = document.getElementsByClassName(contentName);
-    var int = document.getElementById(totalInt);
-    var loan = document.getElementById(totalLoan);
+    var newTable = document.getElementsByClassName(tableName)[index];
+    var newContent = document.getElementsByClassName(contentName)[index];
+    var int = document.getElementsByClassName(totalInt)[index];
+    var loan = document.getElementsByClassName(totalLoan)[index];
 
-    if (newTable[index]) {
-        newTable[index].remove();
+    if (newTable) {
+        newTable.remove();
     }
 
-    if (newContent[index]) {
-        newContent[index].remove();
+    if (newContent) {
+        newContent.remove();
     }
 
     if (int) {
