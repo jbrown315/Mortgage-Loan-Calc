@@ -42,14 +42,14 @@
 
 </div>
 <div id="simpleInputs">
-    <input type="number" id="loanAmountSimple" min="0" max="10000000" value="120"><br>
-    <input type="number" id="intRateSimple" value="10"><br>
-    <input type="number" id="loanLengthSimple" min="0" max="600" value="1"><br>
+    <input type="number" class="loanAmountSimple" min="0" max="10000000" value="120"><br>
+    <input type="number" class="intRateSimple" value="10"><br>
+    <input type="number" class="loanLengthSimple" min="0" max="600" value="1"><br>
 
 </div>
 </div>
-<p class="calcButton"><button onclick = "simpleCalc();">Calculate</button><br></p>
-<div id="simpleTable">
+<p class="calcButton"><button onclick = "simpleCalc(0);">Calculate</button><br></p>
+<div class="simpleTable">
 
 </div>
 
@@ -86,21 +86,21 @@
 
         </div>
         <div id="compInputs">
-            <input type="number" id="loanAmountComp" min="0" max="100000000" value="100000"><br>
-            <input type="number" id="intRateComp" value="5"><br>
-            <input type="number" id="loanLengthComp" min="0" max="100" value="5"><br>
-            <select id="compPeriod">
+            <input type="number" class="loanAmountComp" min="0" max="100000000" value="100000"><br>
+            <input type="number" class="intRateComp" value="5"><br>
+            <input type="number" class="loanLengthComp" min="0" max="100" value="5"><br>
+            <select class="compPeriod">
                 <option>Monthly</option>
                 <option>Weekly</option>
                 <option>Daily</option>
             </select><br>
-            <input type="number" id="compAdd" min="0" max="600" value="0"><br>
+            <input type="number" class="compAdd" min="0" max="600" value="0"><br>
 
         </div>
 
     </div>
-    <p class="calcButton"><button onclick = "compoundCalc();">Calculate</button><br></p>
-    <div id="compTable">
+    <p class="calcButton"><button onclick = "compoundCalc(0);">Calculate</button><br></p>
+    <div class="compTable">
 
     </div>
 
@@ -115,16 +115,11 @@
     <span>$$A = \frac{$5000 * 10\%}{4}$$</span>
     <span>$$A = $125$$</span></p>
 
-<div id="collapse">
-    <button onclick="createCollapse();">click on me</button>
+
+
 </div>
 
-</div>
 
-
-<footer>
-    Footer
-
-</footer>
+<footer><p>Josh Brown | <a href="mailto:jbrown@shipleyschool.org">jbrown@shipleyschool.org</a><br>Copyright &copy; 2019 All Rights Reserved</p></footer>
 </body>
 </html>

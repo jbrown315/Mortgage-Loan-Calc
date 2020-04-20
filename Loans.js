@@ -1,47 +1,26 @@
 
-function simpleCalc() {
+function simpleCalc(index) {
 
-    deleteTable("simpleCollapse", "simpleContent", "totalIntSimple", "totalLoanSimple");
+    var simpleEl = document.getElementsByClassName("simpleTable")[index];
 
-    var loanAmountSimple = document.getElementById("loanAmountSimple");
-    var intRateSimple = document.getElementById("intRateSimple");
-    var loanLengthSimple = document.getElementById("loanLengthSimple");
+    deleteTable("collapsibleSimple", "contentSimple", "totalIntSimple", "totalLoanSimple", index);
+
+    var loanAmountSimple = document.getElementsByClassName("loanAmountSimple")[index];
+    var intRateSimple = document.getElementsByClassName("intRateSimple")[index];
+    var loanLengthSimple = document.getElementsByClassName("loanLengthSimple")[index];
 
     validator(loanAmountSimple);
     validator(intRateSimple);
     validator(loanLengthSimple);
 
-    var simpleEl = document.getElementById("simpleTable");
-
-    var totalIntSimple = document.createTextNode("Total Interest: " + formatAsMoney((loanAmountSimple.value) * parseInt(intRateSimple.value) / 100));
-    var totalIntElSimple = document.createElement("p");
-    totalIntElSimple.setAttribute("id", "totalIntSimple");
-
-    var totalLoanSimple = document.createTextNode("Total Cost of Loan: " + formatAsMoney(parseInt(loanAmountSimple.value) + (parseInt(loanAmountSimple.value) * parseInt(intRateSimple.value) / 100)));
-    var totalLoanElSimple = document.createElement("p");
-    totalLoanElSimple.setAttribute("id", "totalLoanSimple");
-
-    totalIntElSimple.style.fontSize = "2em";
-    totalIntElSimple.style.textAlign = "center";
-    totalLoanElSimple.style.fontSize = "2em";
-    totalLoanElSimple.style.textAlign = "center";
-
-    totalIntElSimple.appendChild(totalIntSimple);
-    totalLoanElSimple.appendChild(totalLoanSimple);
-
-    simpleEl.appendChild(totalIntElSimple);
-    simpleEl.appendChild(totalLoanElSimple);
-
     //start building collapsible
     var simpleTableButton = document.createElement("button");
     simpleTableButton.innerHTML = "Amortization Schedule";
     simpleTableButton.setAttribute("type", "button");
-    simpleTableButton.setAttribute("class", "collapsible");
-    simpleTableButton.setAttribute("id", "simpleCollapse");
+    simpleTableButton.setAttribute("class", "collapsibleSimple");
 
     var simpleTableLoc = document.createElement("div");
-    simpleTableLoc.setAttribute("class", "content");
-    simpleTableLoc.setAttribute("id", "simpleContent");
+    simpleTableLoc.setAttribute("class", "contentSimple");
 
     simpleTableButton.addEventListener("click", function() {
         this.classList.toggle("active");
@@ -62,18 +41,36 @@ function simpleCalc() {
 
     tableMaker(simpleTableLoc, "simpleFinal" , simpleHeaders, loanAmountSimple.value, intRateSimple.value, loanLengthSimple.value);
 
+    var totalIntSimple = document.createTextNode("Total Interest: " + formatAsMoney((loanAmountSimple.value) * parseInt(intRateSimple.value) / 100));
+    var totalIntElSimple = document.createElement("p");
+    totalIntElSimple.setAttribute("class", "totalIntSimple");
 
+    var totalLoanSimple = document.createTextNode("Total Cost of Loan: " + formatAsMoney(parseInt(loanAmountSimple.value) + (parseInt(loanAmountSimple.value) * parseInt(intRateSimple.value) / 100)));
+    var totalLoanElSimple = document.createElement("p");
+    totalLoanElSimple.setAttribute("class", "totalLoanSimple");
+
+    totalIntElSimple.style.fontSize = "2em";
+    totalIntElSimple.style.textAlign = "center";
+    totalLoanElSimple.style.fontSize = "2em";
+    totalLoanElSimple.style.textAlign = "center";
+
+    totalIntElSimple.appendChild(totalIntSimple);
+    totalLoanElSimple.appendChild(totalLoanSimple);
+
+    simpleEl.appendChild(totalIntElSimple);
+    simpleEl.appendChild(totalLoanElSimple);
 }
 
-function compoundCalc() {
 
-    deleteTable("compCollapse", "compContent","totalIntComp", "totalLoanComp");
+function compoundCalc(index) {
 
-    var loanAmountComp = document.getElementById("loanAmountComp");
-    var intRateComp = document.getElementById("intRateComp");
-    var loanLengthComp = document.getElementById("loanLengthComp");
-    var compPeriod = document.getElementById("compPeriod");
-    var compAdd = document.getElementById("compAdd");
+    deleteTable("collapsibleComp", "contentComp", "totalIntComp", "totalLoanComp", index);
+
+    var loanAmountComp = document.getElementsByClassName("loanAmountComp")[index];
+    var intRateComp = document.getElementsByClassName("intRateComp")[index];
+    var loanLengthComp = document.getElementsByClassName("loanLengthComp")[index];
+    var compPeriod = document.getElementsByClassName("compPeriod")[index];
+    var compAdd = document.getElementsByClassName("compAdd")[index];
 
     validator(loanAmountComp);
     validator(intRateComp);
@@ -89,18 +86,16 @@ function compoundCalc() {
 
     }
 
-    var compEl = document.getElementById("compTable");
+    var compEl = document.getElementsByClassName("compTable")[index];
 
     //start building collapsible
     var compTableButton = document.createElement("button");
     compTableButton.innerHTML = "Amortization Schedule";
     compTableButton.setAttribute("type", "button");
-    compTableButton.setAttribute("class", "collapsible");
-    compTableButton.setAttribute("id", "compCollapse");
+    compTableButton.setAttribute("class", "collapsibleComp");
 
     var compTableLoc = document.createElement("div");
-    compTableLoc.setAttribute("class", "content");
-    compTableLoc.setAttribute("id", "compContent");
+    compTableLoc.setAttribute("class", "contentComp");
 
     compTableButton.addEventListener("click", function() {
         this.classList.toggle("active");
@@ -124,11 +119,11 @@ function compoundCalc() {
 
     var totalIntComp = document.createTextNode("Total Interest: " + formatAsMoney((compPayments * paymentComp) - loanAmountComp.value));
     var totalIntElComp = document.createElement("p");
-    totalIntElComp.setAttribute("id", "totalIntComp");
+    totalIntElComp.setAttribute("class", "totalIntComp");
 
     var totalLoanComp = document.createTextNode("Total Cost of Loan: " + formatAsMoney((compPayments * paymentComp)));
     var totalLoanElComp = document.createElement("p");
-    totalLoanElComp.setAttribute("id", "totalLoanComp");
+    totalLoanElComp.setAttribute("class", "totalLoanComp");
 
     totalIntElComp.style.fontSize = "2em";
     totalIntElComp.style.textAlign = "center";
@@ -266,18 +261,18 @@ function validator(num) {
 
 }
 
-function deleteTable(tableName, contentName, totalInt, totalLoan) {
-    var newTable = document.getElementById(tableName);
-    var newContent = document.getElementById(contentName);
+function deleteTable(tableName, contentName, totalInt, totalLoan, index) {
+    var newTable = document.getElementsByClassName(tableName);
+    var newContent = document.getElementsByClassName(contentName);
     var int = document.getElementById(totalInt);
     var loan = document.getElementById(totalLoan);
 
-    if (newTable) {
-        newTable.remove();
+    if (newTable[index]) {
+        newTable[index].remove();
     }
 
-    if (newContent) {
-        newContent.remove();
+    if (newContent[index]) {
+        newContent[index].remove();
     }
 
     if (int) {
@@ -302,39 +297,112 @@ function formatAsMoney(value) {
     return(formatter.format(value));
 }
 
-//function createCollapse() {
-//    var collapseLoc = document.getElementById("collapse");
-//
-//    var div = document.createElement("div");
-//    var paragraph = document.createElement("p");
-//    var text = document.createTextNode("Inner Test Text");
-//
-//    paragraph.appendChild(text);
-//    div.appendChild(paragraph);
-//
-//    div.setAttribute("class", "content");
-//
-//
-//    var button = document.createElement("button");
-//    button.innerHTML = "Amortization Schedule";
-//    button.setAttribute("type", "button");
-//    button.setAttribute("class", "collapsible");
-//
-//    button.addEventListener("click", function() {
-//        this.classList.toggle("active");
-//        var content = div;
-//        if (content.style.maxHeight) {
-//            content.style.maxHeight = null;
-//        }
-//        else {
-//            content.style.maxHeight = content.scrollHeight + "px";
-//        }
-//
-//    });
-//
-//
-//
-//    collapseLoc.appendChild(button);
-//    collapseLoc.appendChild(div);
-//
-//}
+function loanSelect(selection) {
+    var loanSelected = document.getElementById(selection);
+    if (selection.includes("A") == true) {
+        var extra = document.getElementsByClassName("selectedA");
+        for (i=0;i<extra.length; i++) {
+            extra[i].className = "optionA";
+        }
+        loanSelected.className = "selectedA";
+
+    }
+
+    else {
+        var extra = document.getElementsByClassName("selectedB");
+        for (i=0;i<extra.length; i++) {
+            extra[i].className = "optionB";
+        }
+        loanSelected.className = "selectedB";
+    }
+
+
+    if (loanSelected.id.includes("simpleInt") == true) {
+        if (loanSelected.id.includes("A") == true) {
+            simpleInputs("leftLoanInput");
+        }
+        else {
+            simpleInputs("rightLoanInput");
+        }
+    }
+
+    else if (loanSelected.id.includes("compInt") == true) {
+        if (loanSelected.id.includes("A") == true) {
+            compInputs("leftLoanInput");
+        }
+        else {
+            compInputs("rightLoanInput");
+        }
+    }
+
+    else if (loanSelected.id.includes("intOnly") == true) {
+        if (loanSelected.id.includes("A") == true) {
+            intOnlyInputs("leftLoanInput");
+        }
+        else {
+            intOnlyInputs("rightLoanInput");
+        }
+    }
+    calcColor();
+}
+
+function simpleInputs(loc) {
+    simple = document.getElementById(loc);
+    simple.innerHTML = "<div id='simpleMain'>Loan Amount:<input type='number' class='loanAmountSimple' min='0' max='10000000' value='120'><br>Yearly Interest Rate:<input type='number' class='intRateSimple' value='10' ><br>Loan Length:<input type='number' class='loanLengthSimple' min='0' max='600' value='1'><br></div>";
+}
+
+function compInputs(loc) {
+    comp = document.getElementById(loc);
+    comp.innerHTML = "<div id='compMain'>Loan Amount:<input type='number' class='loanAmountComp' min='0' max='100000000' value='100000'><br>Interest Rate:<input type='number' class='intRateComp' value='5'><br>Loan Length:<input type='number' class='loanLengthComp' min='0' max='100' value='5'><br>Compounding Period:<select class='compPeriod'><option>Monthly</option><option>Weekly</option><option>Daily</option></select><br>Additional Yearly Payment:<input type='number' class='compAdd' min='0' max='600' value='0'><br></div>";
+}
+
+function intOnlyInputs(loc) {
+    intOnly = document.getElementById(loc);
+    intOnly.innerHTML = "<div id='invalid'>INVALID!</div>";
+}
+
+function calcColor() {
+    var calcButton = document.getElementById("calcCompare");
+    if (document.getElementsByClassName("selectedA").length > 0 && document.getElementsByClassName("selectedB").length > 0 && document.getElementById("leftLoanInput").childNodes[0].id != "invalid" && document.getElementById("rightLoanInput").childNodes[0].id != "invalid") {
+        calcButton.style.opacity = "100%";
+    }
+    else {
+        calcButton.style.opacity = "40%";
+    }
+}
+
+function compareEr(side, tableArea, index) {
+    if (side.id.includes("simple") == true) {
+        document.getElementById(tableArea).innerHTML = "<div class='simpleTable'></div>";
+        for (i=0;i<document.getElementsByClassName("simpleTable").length; i++) {
+            document.getElementsByClassName("simpleTable")[i].style.fontSize = "1em";
+        }
+        simpleCalc(index);
+    }
+    else if (side.id.includes("comp") == true) {
+        document.getElementById(tableArea).innerHTML = "<div class='compTable'></div>";
+        for (i=0;i<document.getElementsByClassName("compTable").length; i++) {
+            document.getElementsByClassName("compTable")[i].style.fontSize = "1em";
+        }
+        compoundCalc(index);
+    }
+
+}
+
+function compareCalc() {
+    if (document.getElementById("calcCompare").style.opacity == "1") {
+        var leftSide = document.getElementsByClassName("selectedA")[0];
+        var rightSide = document.getElementsByClassName("selectedB")[0];
+        if (leftSide.id[0] == rightSide.id[0]){
+            compareEr(leftSide, "leftLoanTable", 0);
+            compareEr(rightSide, "rightLoanTable", 1);
+        }
+        else {
+            compareEr(leftSide, "leftLoanTable", 0);
+            compareEr(rightSide, "rightLoanTable", 0);
+        }
+
+
+    }
+}
+

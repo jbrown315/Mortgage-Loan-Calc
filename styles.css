@@ -97,9 +97,6 @@ input {
     width: 27%;
 }
 
-#simpleMain, #compMain {
-    text-align: center;
-}
 
 select {
     width: 75px;
@@ -110,37 +107,27 @@ select {
     margin-top: 0px;
 }
 
-footer {
-    color: white;
-    background-color: #493075;
-    text-align: center;
-    font-size: 1.25em;
-    padding: 20px;
-    border: 5px solid white;
-}
-
 td {
     text-align: center;
 }
 
-.collapsible {
+.collapsibleSimple, .collapsibleComp {
   background-color: #222;
   color: white;
   cursor: pointer;
   padding: 18px;
-  width: 80%;
+  width: 100%;
   border: none;
   text-align: center;
-  margin-left: 10%;
   outline: none;
   font-size: 15px;
 }
 
-.active, .collapsible:hover {
+.active, .collapsibleSimple:hover, .collapsibleComp:hover {
   background-color: #000;
 }
 
-.content {
+.contentSimple, .contentComp {
   padding: 0 18px;
   max-height: 0;
   overflow: hidden;
@@ -148,7 +135,7 @@ td {
   transition: max-height 0.2s ease-out;
 }
 
-.collapsible:after {
+.collapsibleSimple:after, .collapsibleComp:after {
   content: '\002B';  /* Unicode character for "minus" sign (+) */
   color: white;
   font-weight: bold;
@@ -172,6 +159,7 @@ nav a {
     font-size: 1.75em;
     text-decoration: none;
     padding: 5px;
+    border: 2px solid white;
 
 }
 
@@ -185,4 +173,48 @@ nav a:hover {
 
 nav a:active {
     background-color: #2e2b2b;
+}
+
+#simpleMain, #compMain {
+    color: white;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+#invalid {
+    text-align: center;
+    font-size: 3em;
+    color: red;
+    font-weight: bolder;
+}
+
+footer {
+    color: white;
+    background-color: #493075;
+    text-align: center;
+    font-size: 1em;
+    padding: 20px;
+    border: 5px solid white;
+}
+
+footer p {
+    font-size: 1em;
+    text-align: center;
+    padding: 0px;
+}
+
+footer a {
+    color: white;
+}
+
+footer a:visited {
+    color: white;
+}
+
+footer a:hover {
+    color: white;
+}
+
+footer a:active {
+    color: white;
 }

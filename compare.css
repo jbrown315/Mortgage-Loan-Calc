@@ -1,0 +1,87 @@
+#leftPad, #leftLoanChoice, #rightLoanChoice, #leftLoanInput, #rightLoanInput, #leftLoanTable, #rightLoanTable, #rightPad {
+    background-color: #6c6c70;
+}
+
+.noLoanSelected {
+    text-align: center;
+    opacity: 50%;
+    font-size: 3em;
+}
+
+#leftLoanChoice, #rightLoanChoice {
+    text-align: center;
+    padding-top: 60px;
+}
+
+.optionA, .optionB {
+    color: white;
+    font-size: 1.2em;
+    background-color: #493075;
+    padding: 15px;
+}
+
+.optionA:visited, .optionB:visited {
+    background-color: #493075;
+}
+
+.optionA:hover, .optionB:hover {
+    background-color: #3c2861;
+    cursor: pointer;
+}
+
+.optionA:active, .optionB:active {
+    background-color: #31204f;
+}
+
+.selectedA, .selectedB {
+    color: white;
+    font-size: 1.2em;
+    background-color: #7048b5;
+    padding: 15px;
+}
+
+.selectedA:visited, .selectedB:visited {
+    background-color: #7048b5;
+}
+
+.selectedA:hover, .selectedB:hover {
+    background-color: #7048b5;
+    cursor: auto;
+}
+
+.selectedA:active, .selectedB:active {
+    background-color: #7048b5;
+}
+
+#calcButton {
+    text-align: center;
+    background-color: #6c6c70;
+}
+
+#calcButton a {
+    color: white;
+    font-size: 1.2em;
+    background-color: #493075;
+    padding: 15px;
+    opacity: 40%;
+}
+
+#calcButton a:visited {
+    background-color: #493075;
+}
+
+#calcButton a:hover {
+    background-color: #3c2861;
+}
+
+#calcButton a:active {
+    background-color: #31204f;
+}
+
+table {
+    font-size: 1em;
+}
+
+footer {
+    padding-bottom: 25px;
+}

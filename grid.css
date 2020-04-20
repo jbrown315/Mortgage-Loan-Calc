@@ -1,8 +1,8 @@
 .container {
     display: grid;
     height: 100vh;
-    grid-template-columns: [col1-start] 50px [col1-end col2-start] 1fr [col2-end col3-start] 1fr [col3-end col4-start] 50px [col4-end];
-    grid-template-rows: [row1-start] 170px [row1-end row2-start] 32px [row2-end row3-start] 1fr [row3-end row4-start] 1fr [row4-end row5-start] 1fr [row5-end row6-start] 100px [row6-end];
+    grid-template-columns: [col1-start] 5px [col1-end col2-start] 1fr [col2-end col3-start] 1fr [col3-end col4-start] 5px [col4-end];
+    grid-template-rows: [row1-start] 170px [row1-end row2-start] 42px [row2-end row3-start] 20% [row3-end row4-start] 25% [row4-end row5-start] 10% [row5-end row6-start] 1fr [row6-end row7-start] 86px [row7-end];
 }
 
 h1 {
@@ -15,8 +15,8 @@ h1 {
 #leftPad {
     grid-column-start: 1;
     grid-column-end: 2;
-    grid-row-start: 1;
-    grid-row-end: 7;
+    grid-row-start: 3;
+    grid-row-end: 8;
 }
 
 nav {
@@ -54,30 +54,37 @@ nav {
     grid-row-end: 5;
 }
 
-#leftLoanTable {
+#calcButton {
     grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 5;
-    grid-row-end: 6;
-}
-
-#rightLoanTable {
-    grid-column-start: 3;
     grid-column-end: 4;
     grid-row-start: 5;
     grid-row-end: 6;
 }
 
+#leftLoanTable {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 6;
+    grid-row-end: 7;
+}
+
+#rightLoanTable {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 6;
+    grid-row-end: 7;
+}
+
 #rightPad {
     grid-column-start: 4;
     grid-column-end: 5;
-    grid-row-start: 1;
-    grid-row-end: 7;
+    grid-row-start: 3;
+    grid-row-end: 8;
 }
 
 footer {
     grid-column-start: 1;
     grid-column-end: 5;
-    grid-row-start: 6;
-    grid-row-end: 7;
+    grid-row-start: 7;
+    grid-row-end: 8;
 }
