@@ -54,7 +54,7 @@ span {
     text-shadow: 1px 1px #000;
 }
 
-#simpleLabels, #compLabels {
+#simpleLabels, #compLabels, #intLabels {
     text-align: right;
     display: inline-block;
     width: 27%;
@@ -75,13 +75,6 @@ table, th, td {
     margin-bottom: 0px;
 }
 
-#simpleLabels p, #compLabels p{
-    text-align: right;
-    padding-right: 0px;
-    padding-left: 0px;
-
-}
-
 input {
     width: 150px;
     margin: 5px;
@@ -91,7 +84,7 @@ input {
     color: red;
 }
 
-#simpleInputs, #compInputs {
+#simpleInputs, #compInputs, #intInputs {
     display: inline-block;
     text-align: left;
     width: 27%;
@@ -111,7 +104,7 @@ td {
     text-align: center;
 }
 
-.collapsibleSimple, .collapsibleComp {
+.collapsibleSimple, .collapsibleComp, .collapsibleInt {
   background-color: #222;
   color: white;
   cursor: pointer;
@@ -123,11 +116,11 @@ td {
   font-size: 15px;
 }
 
-.active, .collapsibleSimple:hover, .collapsibleComp:hover {
+.active, .collapsibleSimple:hover, .collapsibleComp:hover, .collapsibleInt:hover {
   background-color: #000;
 }
 
-.contentSimple, .contentComp {
+.contentSimple, .contentComp, .contentInt {
   padding: 0 18px;
   max-height: 0;
   overflow: hidden;
@@ -135,7 +128,7 @@ td {
   transition: max-height 0.2s ease-out;
 }
 
-.collapsibleSimple:after, .collapsibleComp:after {
+.collapsibleSimple:after, .collapsibleComp:after, .collapsibleInt:after {
   content: '\002B';  /* Unicode character for "minus" sign (+) */
   color: white;
   font-weight: bold;
@@ -175,7 +168,7 @@ nav a:active {
     background-color: #2e2b2b;
 }
 
-#simpleMain, #compMain {
+#simpleMain, #compMain, #intMain {
     color: white;
     font-size: 1.2em;
     text-align: center;
@@ -217,4 +210,11 @@ footer a:hover {
 
 footer a:active {
     color: white;
+}
+
+#simpleLabels p, #compLabels p, #intLabels p{
+    text-align: right;
+    padding-right: 0px;
+    padding-left: 0px;
+    font-size: 1.2em;
 }

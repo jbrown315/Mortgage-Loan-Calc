@@ -61,7 +61,6 @@ function simpleCalc(index) {
     simpleEl.appendChild(totalLoanElSimple);
 }
 
-
 function compoundCalc(index) {
 
     deleteTable("collapsibleComp", "contentComp", "totalIntComp", "totalLoanComp", index);
@@ -138,6 +137,70 @@ function compoundCalc(index) {
 
 }
 
+function intCalc(index) {
+    deleteTable("collapsibleInt", "contentInt", "totalIntInt", "totalLoanInt", index);
+
+    var loanAmountInt = document.getElementsByClassName("loanAmountInt")[index];
+    var intRateInt = document.getElementsByClassName("intRateInt")[index];
+    var loanLengthInt = document.getElementsByClassName("loanLengthInt")[index];
+    var intPeriod = document.getElementsByClassName("intPeriod")[index];
+
+    validator(loanAmountInt);
+    validator(intRateInt);
+    validator(loanLengthInt);
+    validator(intPeriod);
+
+    var intEl = document.getElementsByClassName("intTable")[index];
+
+    //start building collapsible
+    var intTableButton = document.createElement("button");
+    intTableButton.innerHTML = "Amortization Schedule";
+    intTableButton.setAttribute("type", "button");
+    intTableButton.setAttribute("class", "collapsibleInt");
+
+    var intTableLoc = document.createElement("div");
+    intTableLoc.setAttribute("class", "contentInt");
+
+    intTableButton.addEventListener("click", function() {
+        this.classList.toggle("active");
+        var intContent = intTableLoc;
+        if (intTableLoc.style.maxHeight) {
+            intTableLoc.style.maxHeight = null;
+        }
+        else {
+            intTableLoc.style.maxHeight = intTableLoc.scrollHeight + "px";
+        }
+
+    });
+
+    intEl.appendChild(intTableButton);
+    intEl.appendChild(intTableLoc);
+
+    var intHeaders = ["Payment Number", "Beginning Balance", "Interest", "Principal", "Payment", "End Balance"];
+
+    tableMaker(intTableLoc, "intFinal", intHeaders, loanAmountInt.value, (intRateInt.value)/100, loanLengthInt.value, intPeriod.value);
+
+    var totalIntInt = document.createTextNode("Total Interest: " + formatAsMoney(intInterestTotal));
+    var totalIntElInt = document.createElement("p");
+    totalIntElInt.setAttribute("class", "totalIntInt");
+
+    var totalLoanInt = document.createTextNode("Total Cost of Loan: " + formatAsMoney(parseInt(loanAmountInt.value) + parseInt(intInterestTotal)));
+    var totalLoanElInt = document.createElement("p");
+    totalLoanElInt.setAttribute("class", "totalLoanInt");
+
+    totalIntElInt.style.fontSize = "2em";
+    totalIntElInt.style.textAlign = "center";
+    totalLoanElInt.style.fontSize = "2em";
+    totalLoanElInt.style.textAlign = "center";
+
+    totalIntElInt.appendChild(totalIntInt);
+    totalLoanElInt.appendChild(totalLoanInt);
+
+    intEl.appendChild(totalIntElInt);
+    intEl.appendChild(totalLoanElInt);
+
+}
+
 function tableMaker(tableLoc, loanType, headers, loanAmount, intRate, loanLength, period, add) {
     var table = document.createElement("table");
     table.setAttribute("id", loanType);
@@ -158,6 +221,9 @@ function tableMaker(tableLoc, loanType, headers, loanAmount, intRate, loanLength
         }
     else if (loanType == "compFinal") {
         var data = rowCalcComp(parseInt(loanAmount), intRate, parseInt(add), period, parseInt(loanLength));
+    }
+    else if (loanType == "intFinal") {
+        var data = rowCalcInt(parseInt(loanAmount), intRate, parseInt(loanLength), parseInt(period));
     }
     for (i=0; i<data.length; i++) {
         var tableRow = document.createElement("tr");
@@ -248,6 +314,48 @@ function rowCalcComp(bal, rate, additional, period, length) {
 
     return(rowsComp);
 
+}
+
+function rowCalcInt(bal, rate, length, period) {
+    rowsInt = [];
+    x = 1;
+    window.intInterestTotal = 0;
+    for (i=1; i<=period*12; i++) {
+        var newRowInt = [];
+        newRowInt.push(x);
+        newRowInt.push(formatAsMoney(bal));
+        intInterestTotal += (rate*bal)/12;
+        newRowInt.push(formatAsMoney((rate*bal)/12));
+        newRowInt.push(formatAsMoney(0.00));
+        newRowInt.push(formatAsMoney((rate*bal)/12));
+        newRowInt.push(formatAsMoney(bal));
+        x += 1;
+        rowsInt.push(newRowInt);
+    }
+
+    length = length - period;
+
+    var intPrincipalMath = Math.pow(1+(rate/(12)),(length*(12)));
+    var intPrincipal = (bal * (rate/(12)) * intPrincipalMath)/(intPrincipalMath - 1);
+    window.intPayments = length*12;
+    for (i=1; i<=length*12; i++) {
+        var newRowInt = [];
+        newRowInt.push(x);
+        newRowInt.push(formatAsMoney(bal));
+        intInterestTotal += (bal * (rate/(12)));
+        newRowInt.push(formatAsMoney(bal * (rate/(12))));
+        newRowInt.push(formatAsMoney(intPrincipal - (bal * (rate/(12)))));
+        newRowInt.push(formatAsMoney(intPrincipal));
+        var intNewBal = bal - ((intPrincipal - (bal * (rate/(12)))));
+        window.paymentInt = intPrincipal;
+        newRowInt.push(formatAsMoney(intNewBal));
+
+        bal = intNewBal;
+        x += 1;
+        rowsInt.push(newRowInt);
+    }
+
+    return(rowsInt);
 }
 
 function validator(num) {
@@ -360,7 +468,7 @@ function compInputs(loc) {
 
 function intOnlyInputs(loc) {
     intOnly = document.getElementById(loc);
-    intOnly.innerHTML = "<div id='invalid'>INVALID!</div>";
+    intOnly.innerHTML = "<div id='intMain'>Loan Amount:<input type='number' class='loanAmountInt' min='0' max='100000000' value='100000'><br>Interest Rate:<input type='number' class='intRateInt' value='5'><br>Loan Length:<input type='number' class='loanLengthInt' min='0' max='100' value='30'><br>Interest Only Period:<input type='number' class='intPeriod' min='0' max='50' value='7'><br></div>";
 }
 
 function calcColor() {
@@ -387,6 +495,13 @@ function compareEr(side, tableArea, index) {
             document.getElementsByClassName("compTable")[i].style.fontSize = "1em";
         }
         compoundCalc(index);
+    }
+    else if (side.id.includes("int") == true) {
+        document.getElementById(tableArea).innerHTML = "<div class='intTable'></div>";
+        for (i=0;i<document.getElementsByClassName("intTable").length; i++) {
+            document.getElementsByClassName("intTable")[i].style.fontSize = "1em";
+        }
+        intCalc(index);
     }
 
 }

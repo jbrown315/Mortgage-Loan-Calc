@@ -115,11 +115,34 @@
     <span>$$A = \frac{$5000 * 10\%}{4}$$</span>
     <span>$$A = $125$$</span></p>
 
+<p class="calculator">Monthly Payment Calculator:</p>
+    <div id="intMain">
+        <div id="intLabels">
+            <p> Loan Amount:<br>
+                Yearly Interest Rate:<br>
+                Duration of Loan (Years):<br>
+                Interest Only Period (Years):<br>
+        </p>
+
+        </div>
+        <div id="intInputs">
+            <input type="number" class="loanAmountInt" min="0" max="100000000" value="100000"><br>
+            <input type="number" class="intRateInt" min="0" value="5"><br>
+            <input type="number" class="loanLengthInt" min="0" max="100" value="30"><br>
+            <input type="number" class="intPeriod" min="0" max="50" value="7"><br>
+
+        </div>
+
+    </div>
+    <p class="calcButton"><button onclick = "intCalc(0);">Calculate</button><br></p>
+    <div class="intTable">
+
+    </div>
 
 
 </div>
 
 
-<footer><p>Josh Brown | <a href="mailto:jbrown@shipleyschool.org">jbrown@shipleyschool.org</a><br>Copyright &copy; 2019 All Rights Reserved</p></footer>
+<footer><p>Josh Brown | <a href="mailto:jbrown@shipleyschool.org">jbrown@shipleyschool.org</a><br>Copyright &copy; 2020 All Rights Reserved</p></footer>
 </body>
 </html>
