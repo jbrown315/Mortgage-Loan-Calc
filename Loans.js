@@ -38,14 +38,15 @@ function simpleCalc(index) {
     simpleEl.appendChild(simpleTableLoc);
 
     var simpleHeaders = ["Payment Number", "Beginning Balance", "Interest", "Principal Amount", "Payment", "End Balance"];
-
     tableMaker(simpleTableLoc, "simpleFinal" , simpleHeaders, loanAmountSimple.value, intRateSimple.value, loanLengthSimple.value);
 
-    var totalIntSimple = document.createTextNode("Total Interest: " + formatAsMoney((loanAmountSimple.value) * parseInt(intRateSimple.value) / 100));
+    // P * r * t = Total Interest
+    // Ex. 100000 * 0.05 * 30 = 150000
+    var totalIntSimple = document.createTextNode("Total Interest: " + formatAsMoney((loanLengthSimple.value)*(loanAmountSimple.value) * parseInt(intRateSimple.value) / 100));
     var totalIntElSimple = document.createElement("p");
     totalIntElSimple.setAttribute("class", "totalIntSimple");
 
-    var totalLoanSimple = document.createTextNode("Total Cost of Loan: " + formatAsMoney(parseInt(loanAmountSimple.value) + (parseInt(loanAmountSimple.value) * parseInt(intRateSimple.value) / 100)));
+    var totalLoanSimple = document.createTextNode("Total Cost of Loan: " + formatAsMoney(parseInt(loanAmountSimple.value) + (loanLengthSimple.value)*(loanAmountSimple.value) * parseInt(intRateSimple.value) / 100));
     var totalLoanElSimple = document.createElement("p");
     totalLoanElSimple.setAttribute("class", "totalLoanSimple");
 
